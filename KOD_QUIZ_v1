@@ -1,0 +1,79 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
+#include <time.h>
+#define MAX_LENGTH 255
+/*
+struct Questions
+{
+    struct Questions *next;
+    int key;
+    int number; // numer pytania
+};
+struct node *head = NULL;
+struct node *current = NULL;*/
+
+
+int losuj_nr_pytania(int nr);
+int wyswietl_pytanie(char nr,char *file_name);
+
+int main()
+{
+    srand(time(NULL));
+    FILE* fptr;
+    //char ch;
+    int nr_pytania = losuj_nr_pytania(nr_pytania);
+    printf("%d\n",nr_pytania);
+    char *filename = "Questions.txt";
+    // otworz plik
+    fptr = fopen(filename, "r");
+    wyswietl_pytanie(nr_pytania,filename);
+    // zczytaj pytanie
+    /*
+    ch = fgetc(fptr);
+    while (ch != EOF && ch != '\'')
+    {
+        printf ("%c", ch);
+        ch = fgetc(fptr);
+    }*/
+    // zamknij plik
+    fclose(fptr);
+    return 0;
+}
+
+int losuj_nr_pytania(int nr)
+{
+    return 1 + rand()%4;
+}
+
+int wyswietl_pytanie(char nr, char *file_name) // wyszukalo nr_pytania + '.'
+{
+    char* ch[2];
+    char* no_question[2];
+    no_question[1] = nr;
+    no_question[2] = '.';
+    FILE* fptr;
+    fptr = fopen(file_name, "r");
+    if (fptr == NULL)
+    {
+        printf("Error: could not open file %s", file_name);
+        return 1;
+    }
+    ch = fgets(*ch, 2, fptr);
+    if(ch == no_question)
+    {
+        while (ch != EOF && ch != '\'')
+        {
+            printf ("%c", ch);
+            ch = fgetc(fptr);
+        }
+    }
+    else
+    {
+        printf("Error: could not find question no. %d",nr);
+        return 2;
+    }
+
+    return 0;
+}
